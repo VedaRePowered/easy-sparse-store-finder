@@ -1,5 +1,6 @@
 # io-hack-project
-An IO Hack Project for team ants
+An IO Hack Project for team ANTS
+
 Created by:
 Ben Heard,
 Ben Shi,
