@@ -4,7 +4,7 @@
   "description": "An IO Hack Project for team ANTS",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BEN1JEN/easy-sparse-store-finder.git"
+    "url": "git+https://github.com/BEN1JEN/easy-sparse-store-finder/"
   },
   "keywords": [
     "iohack",
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/BEN1JEN/easy-sparse-store-finder/issues"
   },
-  "homepage": "https://github.com/BEN1JEN/easy-sparse-store-finder#readme",
+  "homepage": "https://github.com/BEN1JEN/easy-sparse-store-finder/#readme",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
