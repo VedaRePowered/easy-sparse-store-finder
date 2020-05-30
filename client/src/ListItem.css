@@ -1,0 +1,12 @@
+.ListItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ListItem-name {
+  order: 1;
+}
+
+.ListItem-ratingUser {
+  order: 2;
+}
