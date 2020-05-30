@@ -1,10 +1,15 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+#Import database library
+import firebase_admin as firebase
 
+#Import library to make our API calls
 import populartimes
 
+#Time (who would have guessed?)
 from time import time
+
+#Imports for frontend-backenc communication
+import asyncio
+import websockets
 
 # Get the API key from the apiKey file
 apiKeyFile = open("apiKey.txt", "r")
@@ -13,10 +18,10 @@ if apiKeyFile.mode == "r":
     apiKey = apiKeyFile.read()
 
 # Use a service account. The link needs to be a link to your credentials.
-cred = credentials.Certificate('dbauth.json')
-firebase_admin.initialize_app(cred)
+cred = firebase.credentials.Certificate('dbauth.json')
+firebase.initialize_app(cred)
 
-db = firestore.client()
+db = firebase.firestore.client()
 
 def dbPush(locationID, locationName, value, collection):
     #PUSH TO DATABASE
@@ -42,3 +47,11 @@ def getNearby(types, lat, lon):
         #print(place["name"] + ": " + str(place["current_popularity"]))
 
 getNearby(["restaurant"], 51.0673044, -114.0862353)
+
+async def echo(websocket, path):
+    async for message in websocket:
+        await websocket.send(message)
+
+asyncio.get_event_loop().run_until_complete(
+    websockets.serve(echo, 'localhost', 12345))
+asyncio.get_event_loop().run_forever()
