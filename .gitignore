@@ -3,6 +3,9 @@
 /.vscode
 /.idea
 
+/server/dbauth.json
+/server/apiKey.txt
+
 # JavaScript
 /client/node_modules
 /client/www
