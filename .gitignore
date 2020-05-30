@@ -4,5 +4,4 @@
 /.idea
 
 # JavaScript
-/node_modules
-/build
+/client/node_modules
