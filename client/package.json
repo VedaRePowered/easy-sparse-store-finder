@@ -1,11 +1,13 @@
 {
   "name": "easy-sparse-store-finder",
+  "displayName": "Easy Sparse Store Finder",
   "version": "0.1.0",
   "description": "An IO Hack Project for team ANTS",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BEN1JEN/easy-sparse-store-finder/"
   },
+  "main": "src/index.js",
   "keywords": [
     "iohack",
     "io",
@@ -19,21 +21,25 @@
     "store",
     "finder",
     "locater",
-    "population"
+    "population",
+    "ecosystem:cordova",
+    "ecosystem:react"
   ],
   "author": "Ben Heard, Ben Shi, Cole Dewis, Jacob Guglielmin and Jerry Zhou",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/BEN1JEN/easy-sparse-store-finder/issues"
   },
-  "homepage": "https://github.com/BEN1JEN/easy-sparse-store-finder/#readme",
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "cordova-android": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -54,6 +60,17 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cordova-plugin-whitelist": "^1.3.4"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {}
+    },
+    "platforms": [
+      "android"
     ]
   }
 }
