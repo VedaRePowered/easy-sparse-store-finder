@@ -3,9 +3,8 @@
 /.vscode
 /.idea
 
-/dbauth.json
-
-/apiKey
+/server/dbauth.json
+/server/apiKey
 
 # JavaScript
 /client/node_modules
