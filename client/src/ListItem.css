@@ -12,8 +12,21 @@
   font-weight: bold;
 }
 
-.ListItem-ratingUser {
+
+.ListItem-ratingContainer {
   order: 2;
+  display: flex;
+}
+
+.ListItem-rating-google {
+  order: 1
+}
+
+.ListItem-rating-user {
+  order: 2
+}
+
+.ListItem-rating {
   padding: 0.2em;
   border-radius: 0.2em;
   background-color: #404048;
@@ -21,22 +34,22 @@
   margin: 0.2em;
 }
 
-.ListItem-ratingUser_Squishy {
+.ListItem-rating_Squishy {
   background-color: #E83030;
 }
 
-.ListItem-ratingUser_Packed {
+.ListItem-rating_Packed {
   background-color: #F0A030;
 }
 
-.ListItem-ratingUser_Normal {
+.ListItem-rating_Moderate {
   background-color: #F0D020;
 }
 
-.ListItem-ratingUser_Sparse {
+.ListItem-rating_Sparse {
   background-color: #30E030;
 }
 
-.ListItem-ratingUser_Lonely {
+.ListItem-rating_Lonely {
   background-color: #30B0F0;
 }

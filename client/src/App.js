@@ -22,7 +22,7 @@ class App extends React.Component {
       //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
       //   error => alert(error.message)
       // );
-      socket.send("getRatings,50.907946,-114.104279")
+      socket.send("getRatings,51.0673044,-114.0862353")
     };
     socket.onmessage = event => {
       const data = decode(event.data);
@@ -45,7 +45,7 @@ class App extends React.Component {
   }
 
   userRate(cursor) {
-    socket.send("userRate," + Math.floor(cursor.clientX/window.innerWidth*5.0).toString());
+    socket.send("userRate," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
   }
 
   render() {
@@ -57,7 +57,7 @@ class App extends React.Component {
           </p>
         </header>
         <ListView stores={this.state.stores} />
-        <RatingBar id="rating-bar" userRate={this.userRate}/>
+        <RatingBar userRate={this.userRate}/>
       </div>
     );
   }
