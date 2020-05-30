@@ -6,17 +6,15 @@ function getRatingStr(ratingValue) {
     return "Unknown";
   }
   let ratingStr = "";
-  const scaledRating = Math.floor(ratingValue / 100.0 * 6.0);
+  const scaledRating = Math.floor(ratingValue / 100.0 * 9.0);
   switch (scaledRating) {
-    case 7: ratingStr = "More then ever before"; break;
-    case 6: ratingStr = "Squishy"; break;
-    case 5: ratingStr = "Packed"; break;
-    case 4: ratingStr = "Crowded"; break;
-    case 3: ratingStr = "Moderate"; break;
-    case 2: ratingStr = "Sparse"; break;
-    case 1: ratingStr = "Lonely"; break;
-    case 0: ratingStr = "Empty"; break;
-    default: ratingStr = "Unknown"; break;
+    case 9: case 10:        ratingStr = "Squishy"; break;
+    case 6: case 7: case 8: ratingStr = "Crowded"; break;
+    case 5:                 ratingStr = "Moderate"; break;
+    case 4: case 3:         ratingStr = "Sparse"; break;
+    case 2: case 1:         ratingStr = "Quiet"; break;
+    case 0:                 ratingStr = "Lonely"; break;
+    default:                ratingStr = "Unknown"; break;
   }
   return ratingStr;
 }

@@ -16,13 +16,17 @@ class App extends React.Component {
       stores: [],
     };
   }
+  reloadStores() {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
+    //   error => alert(error.message)
+    // );
+    socket.send("getRatings,51.0673044,-114.0862353");
+  }
   componentDidMount() {
     socket.onopen = event => {
-      // navigator.geolocation.getCurrentPosition(
-      //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
-      //   error => alert(error.message)
-      // );
-      socket.send("getRatings,51.0673044,-114.0862353")
+      this.reloadStores();
+      setInterval(this.reloadStores, 90000) // Reload once every one and a half minutes
     };
     socket.onmessage = event => {
       const data = decode(event.data);
@@ -45,17 +49,19 @@ class App extends React.Component {
   }
 
   userRate(cursor) {
-    socket.send("userRate," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
+    socket.send("userRate," +  + "," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
+    this.reloadStores();
   }
 
   render() {
     return (
       <div className="App">
         <header>
-          <p>
-            Header
-          </p>
+          <h1>
+            Sparse
+          </h1>
         </header>
+        <button className="App_refreashbutton" onClick={this.reloadStores}>Refresh</button>
         <ListView stores={this.state.stores} />
         <RatingBar userRate={this.userRate}/>
       </div>

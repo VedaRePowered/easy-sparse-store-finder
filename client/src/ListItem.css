@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-top: solid 1px black;
-  border-bottom: solid 1px black;
+  border-top: solid 1px #f8f8ff;
+  border-bottom: solid 1px #f8f8ff;
 }
 
 .ListItem-name {
@@ -38,18 +38,22 @@
 }
 
 .ListItem-rating_Squishy {
-  background-color: #E83030;
+  background-color: #E88030;
 }
 
-.ListItem-rating_Packed {
-  background-color: #F0A030;
+.ListItem-rating_Crowded {
+  background-color: #F02020;
 }
 
 .ListItem-rating_Moderate {
-  background-color: #F0D020;
+  background-color: #F0A030;
 }
 
 .ListItem-rating_Sparse {
+  background-color: #F0D020;
+}
+
+.ListItem-rating_Quiet {
   background-color: #30E030;
 }
 

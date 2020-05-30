@@ -7,7 +7,7 @@
 }
 
 .RatingBar_gradient {
-  width: calc(100% - 2em);
+  width: calc(100% - 3em);
   background: linear-gradient(to left, #E83030, #F0A030, #F0D020, #30E030);
   border-radius: 0.5em;
   margin: 1em;
