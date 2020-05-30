@@ -11,7 +11,8 @@ function decode(data) {
 const socket = new WebSocket("ws://127.0.0.1:12345");
 class App extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
+    this.storeType = "supermarket";
     this.state = {
       stores: [],
     };
@@ -21,7 +22,7 @@ class App extends React.Component {
     //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
     //   error => alert(error.message)
     // );
-    socket.send("getRatings,51.0673044,-114.0862353");
+    socket.send("getRatings,51.0673044,-114.0862353," + this.storeType);
   }
   componentDidMount() {
     socket.onopen = event => {
@@ -53,6 +54,11 @@ class App extends React.Component {
     this.reloadStores();
   }
 
+  switchStores(storeType) {
+    this.storeType = storeType;
+    this.reloadStores();
+  }
+
   render() {
     return (
       <div className="App">
@@ -61,7 +67,13 @@ class App extends React.Component {
             Sparse
           </h1>
         </header>
-        <button className="App_refreashbutton" onClick={this.reloadStores}>Refresh</button>
+        <span className="App_buttonContainer">
+          <button onClick={this.reloadStores}>Refresh</button>
+          <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
+          <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
+          <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
+          <button onClick={() => this.switchStores("park")}>Parks</button>
+        </span>
         <ListView stores={this.state.stores} />
         <RatingBar userRate={this.userRate}/>
       </div>

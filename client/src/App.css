@@ -23,13 +23,19 @@ body {
   color: #61dafb;
 }
 
+.App_buttonContainer {
+  margin: 1em;
+  width: calc(100% - 2em);
+  display: flex;
+  justify-content: center;
+}
+
 button {
   background-color: #f8f8ff;
   border: none;
   border-radius: 0.5em;
   padding: 0.5em 1em;
-  margin: 1em;
-  width: calc(100% - 2em);
+  margin-right: 1em;
 }
 
 button:hover {
