@@ -3,6 +3,8 @@
 /.vscode
 /.idea
 
+/dbauth.json
+
 # JavaScript
 /client/node_modules
 /client/www
