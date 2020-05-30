@@ -1,12 +1,42 @@
 .ListItem {
   display: flex;
   justify-content: space-between;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
 }
 
 .ListItem-name {
   order: 1;
+  padding: 0.2em;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .ListItem-ratingUser {
   order: 2;
+  padding: 0.2em;
+  border-radius: 0.2em;
+  background-color: #404048;
+  color: #f8f8ff;
+  margin: 0.2em;
+}
+
+.ListItem-ratingUser_Squishy {
+  background-color: #E83030;
+}
+
+.ListItem-ratingUser_Packed {
+  background-color: #F0A030;
+}
+
+.ListItem-ratingUser_Normal {
+  background-color: #F0D020;
+}
+
+.ListItem-ratingUser_Sparse {
+  background-color: #30E030;
+}
+
+.ListItem-ratingUser_Lonely {
+  background-color: #30B0F0;
 }

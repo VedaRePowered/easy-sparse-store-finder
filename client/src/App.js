@@ -1,9 +1,31 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ListItem from './ListItem';
+import ListView from './ListView';
 
 function App() {
+  const stores = [
+    {
+      "name": "Safeway",
+      "userRating": 4
+    },
+    {
+      "name": "Costco",
+      "userRating": 0
+    },
+    {
+      "name": "Sobeys",
+      "userRating": 3
+    },
+    {
+      "name": "Superstore",
+      "userRating": 1
+    },
+    {
+      "name": "Co-op",
+      "userRating": 2
+    },
+  ]
   return (
     <div className="App">
       <header>
@@ -11,7 +33,7 @@ function App() {
           Header
         </p>
       </header>
-      <ListItem storeName="Safeway" userRating="3"/>
+      <ListView stores={stores} />
     </div>
   );
 }
