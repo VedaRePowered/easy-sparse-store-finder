@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ListView from './ListView';
+import RatingBar from './RatingBar';
 
 function decode(data) {
   return data.split(",").map(object => object.split(":"));
@@ -30,17 +31,21 @@ class App extends React.Component {
         case "storeRatings":
           for (const storeID in data) { // can't use of because data[0] is the message type.
             if (data.hasOwnProperty(storeID) && parseInt(storeID) !== 0) {
-              console.log(storeID)
               const store = data[storeID];
               newStores.push({name: store[0], userRating: parseInt(store[1]), googleRating: parseInt(store[2]), locationId: store[3]})
             }
           }
           this.setState({stores: newStores});
+
           break;
         default:
 
       }
     };
+  }
+
+  userRate(cursor) {
+    socket.send("userRate," + Math.floor(cursor.clientX/window.innerWidth*5.0).toString());
   }
 
   render() {
@@ -52,6 +57,7 @@ class App extends React.Component {
           </p>
         </header>
         <ListView stores={this.state.stores} />
+        <RatingBar id="rating-bar" userRate={this.userRate}/>
       </div>
     );
   }
