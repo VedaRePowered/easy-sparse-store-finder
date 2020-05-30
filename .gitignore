@@ -5,6 +5,8 @@
 
 /dbauth.json
 
+/apiKey
+
 # JavaScript
 /client/node_modules
 /client/www
