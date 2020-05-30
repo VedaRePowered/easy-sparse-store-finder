@@ -1,0 +1,34 @@
+{
+  "name": "easy-sparse-store-finder",
+  "version": "1.0.0",
+  "description": "An IO Hack Project for team ANTS",
+  "main": "server/main.js",
+  "scripts": {
+    "test": "node server/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BEN1JEN/easy-sparse-store-finder.git"
+  },
+  "keywords": [
+    "iohack",
+    "io",
+    "hack",
+    "pandemic",
+    "covid",
+    "coronavirus",
+    "covid-19",
+    "easy",
+    "sparse",
+    "store",
+    "finder",
+    "locater",
+    "population"
+  ],
+  "author": "Ben Heard, Ben Shi, Cole Dewis, Jacob Guglielmin and Jerry Zhou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BEN1JEN/easy-sparse-store-finder/issues"
+  },
+  "homepage": "https://github.com/BEN1JEN/easy-sparse-store-finder#readme"
+}
