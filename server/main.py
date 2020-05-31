@@ -12,6 +12,7 @@ from datetime import datetime
 #Imports for frontend-backenc communication
 import asyncio
 import websockets
+import math
 
 # Get the API key from the apiKey file
 apiKeyFile = open("apiKey.txt", "r")
@@ -26,24 +27,42 @@ firebase.initialize_app(cred)
 db = firestore.client()
 
 def dbPush(locationID, value, collection):
-    #PUSH TO DATABASE
+    #PUSH TO DB
     doc_ref = db.collection(collection).document(locationID)
-    doc_ref.set({
-        "value": value,
-        "time": time()
-    })
+    #updates DB if document exists, creates if it does not
+    if doc_ref.get().exists:
+        doc_ref.update({
+            str(math.floor(time())): { "value": value}
+        })
+    else:
+        doc_ref.set({
+            str(math.floor(time())): { "value": value}
+        })
 
 def dbRead(document, collection):
-    users_ref = db.collection(collection)
-    docs = users_ref.stream()
-    for doc in docs:
-        #only shows the requested doc
-        if(doc.id == document):
-            #if the review was performed recently, display. else, do not display
-            if(time() - doc.to_dict()["time"] < 9000):
-                return doc.to_dict()["value"]
-            else:
-                return None
+    #set up variables to read db and determine weighting
+    doc_ref = db.collection(collection).document(document)
+    doc = doc_ref.get()
+    contents = doc.to_dict()
+    total = 0
+    totalWeight = 0
+
+    #determine weight of each entry based on how old it is
+    for entryTime, entry in contents.items():
+        weight = 1 - (time() - float(entryTime)) / 9000
+        #based on weight, either delete the entry or use the weight to determine how busy location is
+        if weight < 0:
+            doc_ref.update({
+                entryTime: firestore.DELETE_FIELD
+            })
+        else:
+            totalWeight += weight
+            total += weight * int(entry["value"])
+    #prevents divide by zero errors
+    if totalWeight == 0:
+        return None
+    total /= totalWeight
+    return total
 
 
 def getNearby(types, lat, lon):
@@ -88,5 +107,6 @@ async def onmessage(websocket, path):
 
 #websocket configuration
 asyncio.get_event_loop().run_until_complete(
-    websockets.serve(onmessage, "0.0.0.0", 12345))
+     websockets.serve(onmessage, "0.0.0.0", 12345))
 asyncio.get_event_loop().run_forever()
+
