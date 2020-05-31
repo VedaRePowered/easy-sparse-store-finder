@@ -15,7 +15,7 @@ class App extends React.Component {
     this.storeType = "supermarket";
     this.closestId = "";
     this.closestName = "";
-    this.ownPosition = {"latitude": 51.0673044, "longitude": -114.0862353};
+    this.ownPosition = {"latitude": 51.0509746, "longitude": -114.0782401};
     this.state = {
       stores: [],
     };
@@ -57,6 +57,9 @@ class App extends React.Component {
             }
           }
           const sortedStores = newStores.sort((a, b) => a.dist - b.dist);
+          if (sortedStores.length > 10) {
+            sortedStores.length = 10;
+          }
           console.log(this.closestId)
           console.log(this.closestName)
           this.setState({stores: sortedStores});
