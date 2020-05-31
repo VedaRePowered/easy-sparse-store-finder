@@ -20,15 +20,17 @@ function getRatingStr(ratingValue) {
 }
 
 function ListItem(props) {
-  const userRating = getRatingStr(props.userRating);
-  const googleRating = getRatingStr(props.googleRating);
+  let ratingValue = props.googleRating > props.userRating ?
+    props.googleRating*0.7 + props.userRating*0.3 :
+    props.userRating*0.7 + props.googleRating*0.3
+  if (typeof(ratingValue) !== "number" || isNaN(ratingValue)) {
+    ratingValue = typeof(props.googleRating) === "number" ? props.googleRating : props.userRating
+  }
+  const rating = getRatingStr(ratingValue);
   return (
     <span className="ListItem">
       <div className="ListItem-name">{props.storeName}</div>
-      <div className="ListItem-ratingContainer">
-        <div className={"ListItem-rating ListItem-rating_" + userRating}>{userRating}</div>
-        <div className={"ListItem-rating ListItem-rating_" + googleRating}>{googleRating}</div>
-      </div>
+      <div className={"ListItem-rating ListItem-rating_" + rating}>{rating}</div>
     </span>
   );
 }

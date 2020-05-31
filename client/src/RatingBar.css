@@ -1,5 +1,4 @@
 .RatingBar {
-  position: fixed;
   left: 0px;
   bottom: 0px;
   width: 100%;
@@ -14,6 +13,12 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5em;
+  flex-wrap: wrap;
+}
+
+.RatingBar_name {
+  height: 2em;
+  display: block;
 }
 
 .RatingBar_marker {

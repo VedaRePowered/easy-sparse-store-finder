@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ListView from './ListView';
 import RatingBar from './RatingBar';
@@ -84,18 +83,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <img className="App_logo" src="sparselogo.png"/>
-        </header>
-        <button className="App_refreashButton" onClick={this.reloadStores.bind(this)}>Refresh</button>
+        <img className="App_logo" src="sparselogo.png" alt="sparse"/>
+        <div className="App_refreashButtonContainer"><button className="App_refreashButton" onClick={this.reloadStores.bind(this)}>Refresh</button></div>
         <span className="App_buttonContainer">
           <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
           <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
           <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
           <button onClick={() => this.switchStores("park")}>Parks</button>
         </span>
-        <ListView stores={this.state.stores} />
-        <RatingBar storeName={this.closestName} userRate={this.userRate.bind(this)}/>
+        <ListView className="App_listView" stores={this.state.stores} />
+        <RatingBar className="App_ratingBar" storeName={this.closestName} userRate={this.userRate.bind(this)}/>
       </div>
     );
   }

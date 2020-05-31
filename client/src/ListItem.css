@@ -1,6 +1,6 @@
 .ListItem {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   border-top: solid 1px #f8f8ff;
   border-bottom: solid 1px #f8f8ff;
@@ -10,23 +10,12 @@
   order: 1;
   padding: 0.2em;
   font-size: 1.2em;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
-
-.ListItem-ratingContainer {
+.ListItem-rating {
   order: 2;
-  display: grid;
-  grid-template-areas: "google user";
-  grid-template-columns: 50% 50%;
-}
-
-.ListItem-rating-google {
-  grid-area: google;
-}
-
-.ListItem-rating-user {
-  grid-area: user;
+  font-weight: bold;
 }
 
 .ListItem-rating {
@@ -50,7 +39,7 @@
 }
 
 .ListItem-rating_Sparse {
-  background-color: #F0D020;
+  background-color: #B0D020;
 }
 
 .ListItem-rating_Quiet {
