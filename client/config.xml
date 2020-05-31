@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ants.sparse" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ants.sparse" version="1.0.0"
+  xmlns="http://www.w3.org/ns/widgets"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sparse</name>
     <description>
         An IO Hack Project for team ANTS
@@ -18,6 +21,15 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+          <application android:usesCleartextTraffic="true" />
+        </edit-config>
+        <?xml version="1.0" encoding="utf-8"?>
+        <network-security-config>
+          <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">sparse.ben1jen.software</domain>
+          </domain-config>
+        </network-security-config>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

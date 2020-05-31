@@ -8,9 +8,7 @@ function decode(data) {
   return data.split(";").map(object => object.split(":"));
 }
 
-alert("Thing1");
 const socket = new WebSocket("ws://sparse.ben1jen.software/ws/"); // connect to backend server
-alert("Thing2" + socket.readyState.toString() + "," + socket.url.toString());
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -31,9 +29,7 @@ class App extends React.Component {
     //   },
     //   error => alert(error.message)
     // );
-    alert("Thing3" + socket.readyState.toString() + "," + socket.url.toString());
     socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
-    alert("Thing4");
   }
   componentDidMount() {
     // Refresh as soon as we connect to the backend
@@ -74,8 +70,6 @@ class App extends React.Component {
 
       }
     };
-    socket.onerror = function () { alert('error occurred!'); };
-    socket.onclose = function (event) { alert('close code=' + event.code); };
   }
 
   // Send our new rating to the server
