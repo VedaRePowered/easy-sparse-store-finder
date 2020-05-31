@@ -58,7 +58,8 @@ def getNearby(types, lat, lon):
 
 async def onmessage(websocket, path):
     async for message in websocket:
-        data = message.split(",")
+        data = message.split(";")
+        print(message, data)
         #if server recieves request for nearby data
         if data[0] == "getRatings":
             results = getNearby([data[3]], float(data[1]), float(data[2]))
@@ -72,13 +73,18 @@ async def onmessage(websocket, path):
                   hour = datetime.now().hour
                   print(result["populartimes"][weekday]["data"])
                   cur_pop = result["populartimes"][weekday]["data"][hour]
-                strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(cur_pop) + ":" + result["id"] + ":" + str(result["coordinates"]["lat"]) + ":" + str(result["coordinates"]["lng"])
+                strData += ";" + result["name"] + " at " + result["address"] + ":" + \
+                  str(dbRead(result["id"], "userRatings")) + ":" + \
+                  str(cur_pop) + ":" + \
+                  result["id"] + ":" + \
+                  str(result["coordinates"]["lat"]) + ":" + \
+                  str(result["coordinates"]["lng"])
             #send data on locations to user
             await websocket.send("storeRatings" + strData)
         #if server recieves user rating for a location
         elif data[0] == "userRate":
             #push rating to database
-            dbPush("ChIJpTcxKoxvcVMRBwv5uhdBpcE", data[1], "userRatings")
+            dbPush(data[1], data[2], "userRatings")
 
 #websocket configuration
 asyncio.get_event_loop().run_until_complete(
