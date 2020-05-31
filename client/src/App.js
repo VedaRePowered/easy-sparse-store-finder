@@ -5,7 +5,7 @@ import ListView from './ListView';
 import RatingBar from './RatingBar';
 
 function decode(data) {
-  return data.split(",").map(object => object.split(":"));
+  return data.split(";").map(object => object.split(":"));
 }
 
 const debug = true;
@@ -23,10 +23,13 @@ class App extends React.Component {
   }
   reloadStores() {
     // navigator.geolocation.getCurrentPosition(
-    //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
+    //   position => {
+    //     this.ownPosition.latitude = position.coords.latitude;
+    //     this.ownPosition.longitude = position.coords.longitude;
+    //   },
     //   error => alert(error.message)
     // );
-    socket.send("getRatings," + this.ownPosition.latitude + "," + this.ownPosition.longitude + "," + this.storeType);
+    socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
   }
   componentDidMount() {
     socket.onopen = event => {
@@ -44,17 +47,17 @@ class App extends React.Component {
               newStores.push({name: store[0], userRating: parseInt(store[1]), googleRating: parseInt(store[2]), locationId: store[3], position: {"latitude": store[4], "longitude": store[5]}})
             }
           }
-          const sortedStores = newStores.sort((a, b) => a.dist - b.dist);
-          let closestDist = 100;
-          for (const store of sortedStores) {
-            const dist = Math.pow(store.position.latitude-this.ownPosition.latitude, 2)+Math.pow(store.position.longitude-this.ownPosition.longitude, 2)
-            if (dist > closestDist) {
+          let closestDist = 1000000;
+          for (const store of newStores) {
+            const dist = (Math.pow(store.position.latitude-this.ownPosition.latitude, 2)+Math.pow(store.position.longitude-this.ownPosition.longitude, 2))*100000
+            store.dist = dist;
+            if (dist < closestDist) {
               closestDist = dist;
               this.closestId = store.locationId;
               this.closestName = store.name;
-              store.dist = dist;
             }
           }
+          const sortedStores = newStores.sort((a, b) => a.dist - b.dist);
           console.log(this.closestId)
           console.log(this.closestName)
           this.setState({stores: sortedStores});
@@ -67,7 +70,7 @@ class App extends React.Component {
   }
 
   userRate(cursor) {
-    socket.send("userRate," + this.closestId + "," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
+    socket.send("userRate;" + this.closestId + ";" + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
     this.reloadStores();
   }
 
