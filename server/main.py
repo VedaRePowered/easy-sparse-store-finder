@@ -47,7 +47,7 @@ def dbRead(document, collection):
 
 def getNearby(types, lat, lon):
     #request from API information on nearby locations
-    nearbyPlaces = populartimes.get(apiKey, types, (lat-0.001,lon-0.001), (lat+0.001,lon+0.001))
+    nearbyPlaces = populartimes.get(apiKey, types, (lat-0.005,lon-0.005), (lat+0.005,lon+0.005))
     return nearbyPlaces
     # for place in nearbyPlaces:
     #     # Send to frontend

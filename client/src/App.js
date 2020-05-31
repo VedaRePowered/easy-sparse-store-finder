@@ -15,7 +15,8 @@ class App extends React.Component {
     super(props, context);
     this.storeType = "supermarket";
     this.closestId = "";
-    this.clisestName = "";
+    this.closestName = "";
+    this.ownPosition = {"latitude": 51.0673044, "longitude": -114.0862353};
     this.state = {
       stores: [],
     };
@@ -25,7 +26,7 @@ class App extends React.Component {
     //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
     //   error => alert(error.message)
     // );
-    socket.send("getRatings,51.0673044,-114.0862353," + this.storeType);
+    socket.send("getRatings," + this.ownPosition.latitude + "," + this.ownPosition.longitude + "," + this.storeType);
   }
   componentDidMount() {
     socket.onopen = event => {
@@ -40,10 +41,23 @@ class App extends React.Component {
           for (const storeID in data) { // can't use of because data[0] is the message type.
             if (data.hasOwnProperty(storeID) && parseInt(storeID) !== 0) {
               const store = data[storeID];
-              newStores.push({name: store[0], userRating: parseInt(store[1]), googleRating: parseInt(store[2]), locationId: store[3]})
+              newStores.push({name: store[0], userRating: parseInt(store[1]), googleRating: parseInt(store[2]), locationId: store[3], position: {"latitude": store[4], "longitude": store[5]}})
             }
           }
-          this.setState({stores: newStores});
+          const sortedStores = newStores.sort((a, b) => a.dist - b.dist);
+          let closestDist = 100;
+          for (const store of sortedStores) {
+            const dist = Math.pow(store.position.latitude-this.ownPosition.latitude, 2)+Math.pow(store.position.longitude-this.ownPosition.longitude, 2)
+            if (dist > closestDist) {
+              closestDist = dist;
+              this.closestId = store.locationId;
+              this.closestName = store.name;
+              store.dist = dist;
+            }
+          }
+          console.log(this.closestId)
+          console.log(this.closestName)
+          this.setState({stores: sortedStores});
 
           break;
         default:
