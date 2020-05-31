@@ -62,7 +62,7 @@ def dbRead(document: str, collection: str):
             })
         else:
             totalWeight += weight
-            total += weight * entry["value"]
+            total += float(weight) * float(entry["value"])
     # Prevents divide by zero errors
     if totalWeight == 0:
         return None
@@ -101,7 +101,7 @@ async def onmessage(websocket, path: str):
         # If server recieves user rating for a location
         elif data[0] == "userRate":
             # Push rating to database
-            dbPush(data[1], data[2], "userRatings")
+            dbPush(data[1], int(data[2]), "userRatings")
 
 # Start websocket server
 asyncio.get_event_loop().run_until_complete(
