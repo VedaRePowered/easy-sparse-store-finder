@@ -1,3 +1,6 @@
+# Import type hints
+from typing import Dict, List
+
 # Import database library
 import firebase_admin as firebase
 from firebase_admin import firestore
@@ -26,32 +29,32 @@ firebase.initialize_app(cred)
 
 db = firestore.client()
 
-def dbPush(locationID, value, collection):
+def dbPush(locationID: str, value: int, collection: str):
     # PUSH TO DB
     doc_ref = db.collection(collection).document(locationID)
     # Updates DB if document exists, creates if it does not
     if doc_ref.get().exists:
         doc_ref.update({
-            str(math.floor(time())): { "value": value}
+            str(math.floor(time())): {"value": value}
         })
     else:
         doc_ref.set({
-            str(math.floor(time())): { "value": value}
+            str(math.floor(time())): {"value": value}
         })
 
-def dbRead(document, collection):
+def dbRead(document: str, collection: str):
     # Set up variables to read db and determine weighting
     doc_ref = db.collection(collection).document(document)
     doc = doc_ref.get()
-    contents = doc.to_dict()
-    total = 0
-    totalWeight = 0
+    contents: Dict[str, Dict[str, int]] = doc.to_dict()
+    total: float = 0
+    totalWeight: float = 0
 
     # Determine weight of each entry based on how old it is
     if contents is None:
       return None
     for entryTime, entry in contents.items():
-        weight = 1 - (time() - float(entryTime)) / 9000
+        weight: float = 1 - (time() - float(entryTime)) / 9000
         # Based on weight, either delete the entry or use the weight to determine how busy location is
         if weight < 0:
             doc_ref.update({
@@ -59,7 +62,7 @@ def dbRead(document, collection):
             })
         else:
             totalWeight += weight
-            total += weight * int(entry["value"])
+            total += weight * entry["value"]
     # Prevents divide by zero errors
     if totalWeight == 0:
         return None
@@ -67,26 +70,25 @@ def dbRead(document, collection):
     return total
 
 
-def getNearby(types, lat, lon):
+def getNearby(types: List[str], lat: float, lon: float):
     # Request from API information on nearby locations
     nearbyPlaces = populartimes.get(apiKey, types, (lat-0.005,lon-0.005), (lat+0.005,lon+0.005))
     return nearbyPlaces
 
-async def onmessage(websocket, path):
+async def onmessage(websocket, path: str):
     async for message in websocket:
-        data = message.split(";")
-        print(message, data)
+        data: List[str] = message.split(";")
         # If server recieves request for nearby data...
         if data[0] == "getRatings":
             results = getNearby([data[3]], float(data[1]), float(data[2]))
-            strData = ""
+            strData: str = ""
             for result in results:
-                cur_pop = ""
+                cur_pop: str = ""
                 if "current_popularity" in result:
                   cur_pop = result["current_popularity"]
                 elif "populartimes" in result: # fall back on average populartimes
-                  weekday = datetime.today().weekday()
-                  hour = datetime.now().hour
+                  weekday: int = datetime.today().weekday()
+                  hour: int = datetime.now().hour
                   cur_pop = result["populartimes"][weekday]["data"][hour]
                 strData += ";" + result["name"] + " at " + result["address"] + ":" + \
                   str(dbRead(result["id"], "userRatings")) + ":" + \
