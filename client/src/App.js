@@ -13,6 +13,8 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.storeType = "supermarket";
+    this.closestId = "";
+    this.clisestName = "";
     this.state = {
       stores: [],
     };
@@ -50,7 +52,7 @@ class App extends React.Component {
   }
 
   userRate(cursor) {
-    socket.send("userRate," +  + "," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
+    socket.send("userRate," + this.closestId + "," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
     this.reloadStores();
   }
 
@@ -63,19 +65,17 @@ class App extends React.Component {
     return (
       <div className="App">
         <header>
-          <h1>
-            Sparse
-          </h1>
+          <img src="sparselogo.png"/>
         </header>
+        <button className="App_refreashButton" onClick={this.reloadStores}>Refresh</button>
         <span className="App_buttonContainer">
-          <button onClick={this.reloadStores}>Refresh</button>
           <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
           <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
           <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
           <button onClick={() => this.switchStores("park")}>Parks</button>
         </span>
         <ListView stores={this.state.stores} />
-        <RatingBar userRate={this.userRate}/>
+        <RatingBar storeName={this.closestName} userRate={this.userRate.bind(this)}/>
       </div>
     );
   }

@@ -23,6 +23,10 @@ body {
   color: #61dafb;
 }
 
+.App_App_refreashButton {
+
+}
+
 .App_buttonContainer {
   margin: 1em;
   width: calc(100% - 2em);
