@@ -1,6 +1,7 @@
 import React from 'react';
 import './RatingBar.css';
 
+// Bar that you can click to rate your current location
 function RatingBar(props) {
   return (
     <div className="RatingBar">

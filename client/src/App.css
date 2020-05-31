@@ -9,7 +9,7 @@ body {
   display: grid;
   grid-template-areas:
     "logo"
-    "refreash"
+    "refresh"
     "tabs"
     "list"
     "ratings";
@@ -26,8 +26,8 @@ body {
   margin-left: calc(50% - min(95vw, 400px) / 2);
 }
 
-.App_refreashButton {
-  grid-area: refreash;
+.App_refreshButton {
+  grid-area: refresh;
   margin-top: 1em;
 }
 

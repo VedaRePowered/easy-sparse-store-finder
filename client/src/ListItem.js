@@ -1,6 +1,7 @@
 import React from 'react';
 import './ListItem.css';
 
+// convert a rating to a string
 function getRatingStr(ratingValue) {
   if (typeof(ratingValue) !== "number") {
     return "Unknown";
@@ -20,10 +21,10 @@ function getRatingStr(ratingValue) {
 }
 
 function ListItem(props) {
-  let ratingValue = props.googleRating > props.userRating ?
+  let ratingValue = props.googleRating > props.userRating ? // weight the ratings to air on the safe side
     props.googleRating*0.7 + props.userRating*0.3 :
     props.userRating*0.7 + props.googleRating*0.3
-  if (typeof(ratingValue) !== "number" || isNaN(ratingValue)) {
+  if (typeof(ratingValue) !== "number" || isNaN(ratingValue)) { // fallback if either doesn't exist
     ratingValue = typeof(props.googleRating) === "number" ? props.googleRating : props.userRating
   }
   const rating = getRatingStr(ratingValue);
