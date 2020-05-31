@@ -48,6 +48,8 @@ def dbRead(document, collection):
     totalWeight = 0
 
     #determine weight of each entry based on how old it is
+    if contents is None:
+      return None
     for entryTime, entry in contents.items():
         weight = 1 - (time() - float(entryTime)) / 9000
         #based on weight, either delete the entry or use the weight to determine how busy location is
@@ -90,7 +92,6 @@ async def onmessage(websocket, path):
                 elif "populartimes" in result: # fall back on average populartimes
                   weekday = datetime.today().weekday()
                   hour = datetime.now().hour
-                  print(result["populartimes"][weekday]["data"])
                   cur_pop = result["populartimes"][weekday]["data"][hour]
                 strData += ";" + result["name"] + " at " + result["address"] + ":" + \
                   str(dbRead(result["id"], "userRatings")) + ":" + \
@@ -109,4 +110,3 @@ async def onmessage(websocket, path):
 asyncio.get_event_loop().run_until_complete(
      websockets.serve(onmessage, "0.0.0.0", 12345))
 asyncio.get_event_loop().run_forever()
-
