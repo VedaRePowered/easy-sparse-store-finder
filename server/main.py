@@ -24,11 +24,10 @@ firebase.initialize_app(cred)
 
 db = firestore.client()
 
-def dbPush(locationID, locationName, value, collection):
+def dbPush(locationID, value, collection):
     #PUSH TO DATABASE
     doc_ref = db.collection(collection).document(locationID)
     doc_ref.set({
-        "name": locationName,
         "value": value,
         "time": time()
     })
@@ -37,10 +36,17 @@ def dbRead(document, collection):
     users_ref = db.collection(collection)
     docs = users_ref.stream()
     for doc in docs:
+        #only shows the requested doc
         if(doc.id == document):
-            print("{} => {}".format(doc.id, doc.to_dict()))
+            #if the review was performed recently, display. else, do not display
+            if(time() - doc.to_dict()["time"] < 9000):
+                return doc.to_dict()["value"]
+            else:
+                return None
+
 
 def getNearby(types, lat, lon):
+    #request from API information on nearby locations
     nearbyPlaces = populartimes.get(apiKey, types, (lat-0.001,lon-0.001), (lat+0.001,lon+0.001))
     return nearbyPlaces
     # for place in nearbyPlaces:
@@ -53,14 +59,22 @@ async def onmessage(websocket, path):
     async for message in websocket:
         data = message.split(",")
         print(data)
+        #if server recieves request for nearby data
         if data[0] == "getRatings":
-            results = getNearby(["restaurant"], float(data[1]), float(data[2]))
+            results = getNearby([data[3]], float(data[1]), float(data[2]))
             strData = ""
             for result in results:
-                strData += "," + result["name"] + "::" + str(result["current_popularity"]) + ":" + result["id"]
+                strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(result["current_popularity"]) + ":" + result["id"]
             print(strData)
+            #send data on locations to user
             await websocket.send("storeRatings" + strData)
+        #if server recieves user rating for a location
+        elif data[0] == "userRate":
+            #push rating to database
+            dbPush("ChIJpTcxKoxvcVMRBwv5uhdBpcE", data[1], "userRatings")
 
+#websocket configuration
 asyncio.get_event_loop().run_until_complete(
     websockets.serve(onmessage, "localhost", 12345))
 asyncio.get_event_loop().run_forever()
+
