@@ -57,7 +57,12 @@ async def onmessage(websocket, path):
             results = getNearby(["restaurant"], float(data[1]), float(data[2]))
             strData = ""
             for result in results:
+<<<<<<< Updated upstream
                 strData += "," + result["name"] + "::" + str(result["current_popularity"]) + ":" + result["id"]
+=======
+                print(result)
+                strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(result["current_popularity"]) + ":" + result["id"] + ":" + str(result["coordinates"]["lat"]) + ":" + str(result["coordinates"]["lng"])
+>>>>>>> Stashed changes
             print(strData)
             await websocket.send("storeRatings" + strData)
 
