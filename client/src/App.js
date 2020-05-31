@@ -24,12 +24,12 @@ class App extends React.Component {
     // Get position and reload store list from the server
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.ownPosition.latitude = position.coords.latitude;
-        this.ownPosition.longitude = position.coords.longitude;
-        socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
+        // this.ownPosition.latitude = position.coords.latitude;
+        // this.ownPosition.longitude = position.coords.longitude;
       },
       error => alert(error.message)
     );
+    socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
   }
   componentDidMount() {
     // Refresh as soon as we connect to the backend
