@@ -1,7 +1,35 @@
 .RatingBar {
-  width: calc(100% - 2em);
-  height: 2em;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  font-size: 1.5em;
+}
+
+.RatingBar_gradient {
+  width: calc(100% - 3em);
   background: linear-gradient(to left, #E83030, #F0A030, #F0D020, #30E030);
   border-radius: 0.5em;
   margin: 1em;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+}
+
+.RatingBar_marker {
+  color: #f8f8ff;
+  margin: 0;
+  padding: 0;
+}
+
+.RatingBar_marker-safe {
+  order: 1;
+}
+
+.RatingBar_marker-ok {
+  order: 2;
+}
+
+.RatingBar_marker-unsafe {
+  order: 3;
 }

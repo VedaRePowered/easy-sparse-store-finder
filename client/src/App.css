@@ -1,16 +1,11 @@
+body {
+  background-color: #202028;
+  color: #f8f8ff;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  font-size: 1em;
 }
 
 .App-header {
@@ -28,11 +23,29 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App_App_refreashButton {
+
+}
+
+.App_buttonContainer {
+  margin: 1em;
+  width: calc(100% - 2em);
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: #f8f8ff;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  margin-right: 1em;
+}
+
+button:hover {
+  background-color: #fCfCff;
+}
+
+button:active {
+  background-color: #e0e0e4;
 }

@@ -11,18 +11,25 @@ function decode(data) {
 const socket = new WebSocket("ws://127.0.0.1:12345");
 class App extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
+    this.storeType = "supermarket";
+    this.closestId = "";
+    this.clisestName = "";
     this.state = {
       stores: [],
     };
   }
+  reloadStores() {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
+    //   error => alert(error.message)
+    // );
+    socket.send("getRatings,51.0673044,-114.0862353," + this.storeType);
+  }
   componentDidMount() {
     socket.onopen = event => {
-      // navigator.geolocation.getCurrentPosition(
-      //   position => socket.send("getRatings," + position.coords.latitude.toString() + "," + position.coords.longitude.toString()),
-      //   error => alert(error.message)
-      // );
-      socket.send("getRatings,51.0673044,-114.0862353")
+      this.reloadStores();
+      setInterval(this.reloadStores, 90000) // Reload once every one and a half minutes
     };
     socket.onmessage = event => {
       const data = decode(event.data);
@@ -45,19 +52,30 @@ class App extends React.Component {
   }
 
   userRate(cursor) {
-    socket.send("userRate," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
+    socket.send("userRate," + this.closestId + "," + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
+    this.reloadStores();
+  }
+
+  switchStores(storeType) {
+    this.storeType = storeType;
+    this.reloadStores();
   }
 
   render() {
     return (
       <div className="App">
         <header>
-          <p>
-            Header
-          </p>
+          <img src="sparselogo.png"/>
         </header>
+        <button className="App_refreashButton" onClick={this.reloadStores}>Refresh</button>
+        <span className="App_buttonContainer">
+          <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
+          <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
+          <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
+          <button onClick={() => this.switchStores("park")}>Parks</button>
+        </span>
         <ListView stores={this.state.stores} />
-        <RatingBar userRate={this.userRate}/>
+        <RatingBar storeName={this.closestName} userRate={this.userRate.bind(this)}/>
       </div>
     );
   }
