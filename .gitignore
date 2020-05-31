@@ -9,3 +9,6 @@
 # JavaScript
 /client/node_modules
 /client/www
+/client/hooks
+/client/plugins
+/client/platforms
