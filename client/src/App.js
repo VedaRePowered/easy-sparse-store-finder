@@ -9,7 +9,7 @@ function decode(data) {
 }
 
 const debug = true;
-const socket = new WebSocket(debug ? "ws://monarch.lan:12345" : "ws://ben1jen.software/ws");
+const socket = new WebSocket(debug ? "ws://127.0.0.1:12345" : "ws://monarch.lan:12345");
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
