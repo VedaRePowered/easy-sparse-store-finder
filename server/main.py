@@ -63,7 +63,10 @@ async def onmessage(websocket, path):
             results = getNearby([data[3]], float(data[1]), float(data[2]))
             strData = ""
             for result in results:
-                strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(result["current_popularity"]) + ":" + result["id"] + ":" + str(result["coordinates"]["lat"]) + ":" + str(result["coordinates"]["lng"])
+                cur_pop = ""
+                if "current_popularity" in result:
+                  cur_pop = result["current_popularity"]
+                strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(cur_pop) + ":" + result["id"] + ":" + str(result["coordinates"]["lat"]) + ":" + str(result["coordinates"]["lng"])
             #send data on locations to user
             await websocket.send("storeRatings" + strData)
         #if server recieves user rating for a location
