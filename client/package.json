@@ -47,7 +47,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "init": "npm install; mkdir -p hooks platforms plugins www; cordova platform add android"
+    "init": "npm install; mkdir -p hooks platforms plugins www; cordova platform add android",
+    "serve": "serve -s build -l 7080"
   },
   "eslintConfig": {
     "extends": "react-app"

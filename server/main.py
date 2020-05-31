@@ -105,5 +105,5 @@ async def onmessage(websocket, path: str):
 
 # Start websocket server
 asyncio.get_event_loop().run_until_complete(
-     websockets.serve(onmessage, "0.0.0.0", 12345))
+     websockets.serve(onmessage, "0.0.0.0", 7030))
 asyncio.get_event_loop().run_forever()
