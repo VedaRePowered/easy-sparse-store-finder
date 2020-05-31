@@ -51,20 +51,19 @@ class App extends React.Component {
             }
           }
           // Find closest store
-          let closestDist = 1000000;
           for (const store of newStores) {
             const dist = (Math.pow(store.position.latitude-this.ownPosition.latitude, 2)+Math.pow(store.position.longitude-this.ownPosition.longitude, 2))*100000
             store.dist = dist;
-            if (dist < closestDist) {
-              closestDist = dist;
-              this.closestId = store.locationId;
-              this.closestName = store.name;
-            }
           }
-          const sortedStores = newStores.sort((a, b) => a.dist - b.dist);
+          const sortedStores = newStores
+            .filter(store => store.googleRating !== 0)
+            .sort((a, b) => a.dist - b.dist);
+
+          this.closestId = sortedStores[0].locationId;
+          this.closestName = sortedStores[0].name;
+
           // Update the react elements
           this.setState({stores: sortedStores});
-
           break;
         default:
 
