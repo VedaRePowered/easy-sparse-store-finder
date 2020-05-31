@@ -7,6 +7,7 @@ import populartimes
 
 #Time (who would have guessed?)
 from time import time
+from datetime import datetime
 
 #Imports for frontend-backenc communication
 import asyncio
@@ -66,6 +67,11 @@ async def onmessage(websocket, path):
                 cur_pop = ""
                 if "current_popularity" in result:
                   cur_pop = result["current_popularity"]
+                elif "populartimes" in result: # fall back on average populartimes
+                  weekday = datetime.today().weekday()
+                  hour = datetime.now().hour
+                  print(result["populartimes"][weekday]["data"])
+                  cur_pop = result["populartimes"][weekday]["data"][hour]
                 strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(cur_pop) + ":" + result["id"] + ":" + str(result["coordinates"]["lat"]) + ":" + str(result["coordinates"]["lng"])
             #send data on locations to user
             await websocket.send("storeRatings" + strData)
