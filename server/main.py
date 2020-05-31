@@ -61,7 +61,7 @@ async def onmessage(websocket, path):
         print(data)
         #if server recieves request for nearby data
         if data[0] == "getRatings":
-            results = getNearby(["restaurant"], float(data[1]), float(data[2]))
+            results = getNearby([data[3]], float(data[1]), float(data[2]))
             strData = ""
             for result in results:
                 strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(result["current_popularity"]) + ":" + result["id"]
