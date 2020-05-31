@@ -58,16 +58,12 @@ def getNearby(types, lat, lon):
 async def onmessage(websocket, path):
     async for message in websocket:
         data = message.split(",")
-        print(data)
         #if server recieves request for nearby data
         if data[0] == "getRatings":
             results = getNearby([data[3]], float(data[1]), float(data[2]))
             strData = ""
             for result in results:
-                strData += "," + result["name"] + "::" + str(result["current_popularity"]) + ":" + result["id"]
-                print(result)
                 strData += "," + result["name"] + ":" + str(dbRead(result["id"], "userRatings")) + ":" + str(result["current_popularity"]) + ":" + result["id"] + ":" + str(result["coordinates"]["lat"]) + ":" + str(result["coordinates"]["lng"])
-            print(strData)
             #send data on locations to user
             await websocket.send("storeRatings" + strData)
         #if server recieves user rating for a location
@@ -77,6 +73,5 @@ async def onmessage(websocket, path):
 
 #websocket configuration
 asyncio.get_event_loop().run_until_complete(
-    websockets.serve(onmessage, "localhost", 12345))
+    websockets.serve(onmessage, "0.0.0.0", 12345))
 asyncio.get_event_loop().run_forever()
-

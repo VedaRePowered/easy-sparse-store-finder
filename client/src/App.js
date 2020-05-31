@@ -8,7 +8,8 @@ function decode(data) {
   return data.split(",").map(object => object.split(":"));
 }
 
-const socket = new WebSocket("ws://127.0.0.1:12345");
+const debug = true;
+const socket = new WebSocket(debug ? "ws://monarch.lan:12345" : "ws://ben1jen.software/ws");
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -29,7 +30,7 @@ class App extends React.Component {
   componentDidMount() {
     socket.onopen = event => {
       this.reloadStores();
-      setInterval(this.reloadStores, 90000) // Reload once every one and a half minutes
+      setInterval(this.reloadStores.bind(this), 90000) // Reload once every one and a half minutes
     };
     socket.onmessage = event => {
       const data = decode(event.data);
@@ -67,7 +68,7 @@ class App extends React.Component {
         <header>
           <img src="sparselogo.png"/>
         </header>
-        <button className="App_refreashButton" onClick={this.reloadStores}>Refresh</button>
+        <button className="App_refreashButton" onClick={this.reloadStores.bind(this)}>Refresh</button>
         <span className="App_buttonContainer">
           <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
           <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
