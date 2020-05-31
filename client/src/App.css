@@ -8,6 +8,10 @@ body {
   font-size: 1em;
 }
 
+.App_logo {
+  width: min(95%, 400px);
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

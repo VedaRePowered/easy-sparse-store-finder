@@ -8,8 +8,7 @@ function decode(data) {
   return data.split(";").map(object => object.split(":"));
 }
 
-const debug = true;
-const socket = new WebSocket(debug ? "ws://127.0.0.1:12345" : "ws://monarch.lan:12345");
+const socket = new WebSocket("ws://192.168.2.106:12345");
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -83,7 +82,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header>
-          <img src="sparselogo.png"/>
+          <img className="App_logo" src="sparselogo.png"/>
         </header>
         <button className="App_refreashButton" onClick={this.reloadStores.bind(this)}>Refresh</button>
         <span className="App_buttonContainer">
