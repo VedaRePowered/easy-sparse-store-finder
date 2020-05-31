@@ -8,7 +8,7 @@ function decode(data) {
   return data.split(";").map(object => object.split(":"));
 }
 
-const socket = new WebSocket("ws://192.168.2.106:12345");
+const socket = new WebSocket("ws://sparse.ben1jen.software/ws/");
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
