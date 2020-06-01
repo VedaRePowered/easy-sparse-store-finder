@@ -28,7 +28,10 @@ class App extends React.Component {
         this.ownPosition.longitude = position.coords.longitude;
         socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
       },
-      error => alert(error.message)
+      error => {
+        alert("Couldn't get location, I'll use an example location instead.");
+        socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
+      }
     );
     // This is horrible.
   }
