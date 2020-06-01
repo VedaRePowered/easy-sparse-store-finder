@@ -7,7 +7,14 @@ _If you wish to run the backend, you need an API key and database authentication
 
 You can run the client yourself as well, but once again, this is **NOT** necessary as we are hosting the app on a webpage and have created two Android APKs for your use.
 
-[This project is hosted here](https://sparse.ben1jen.software/)
+Our project has three forms:
+1. A webpage hosting the client. If you allow location access, the app will use your location. If you deny access, it will use a set location as a demo.
+2. An Android APK with a set location. This is used to demonstrate the features of the app. (sparse-fake-location.apk)
+3. An Android APK that looks at user location. Note that you likely will not get many results with this app: this is because the range that it searches is set low so that it does not use up all of our free API key usage. (sparse.apk)
+
+To view, download one of our [Android APKs](https://drive.google.com/file/d/19WsWp-907unNeCVBh1RdGa5mjK3F7C7N/view?usp=sharing) or visit our [webpage](https://sparse.ben1jen.software/).
+
+If you would like to run either the server or client yourself, follow these instructions:
 
 To get started:
 
@@ -41,12 +48,8 @@ pip3 install --upgrade git+https://github.com/m-wrzr/populartimes
 To run the backend run:
 `python3 main.py`
 
-Alternatively, download one of our [Android APKs](https://drive.google.com/file/d/19WsWp-907unNeCVBh1RdGa5mjK3F7C7N/view?usp=sharing) or visit our [webpage](https://sparse.ben1jen.software/).
 
-Our project has three forms:
-1. A webpage hosting the client. If you allow location access, the app will use your location. If you deny access, it will use a set location as a demo.
-2. An Android APK with a set location. This is used to demonstrate the features of the app.
-3. An Android APK that looks at user location. Note that you likely will not get many results with this app: this is because the range that it searches is set low so that it does not use up all of our free API key usage. 
+
 
 # Technology
 Our project utilizes many different technologies, including:
