@@ -26,7 +26,7 @@ Alternatively, download one of our Android APKs or visit our webpage.
 Our project has three forms:
 1. A webpage hosting the client. If you allow location access, the app will use your location. If you deny access, it will use a set location as a demo
 2. An Android APK with a set location. This is used to demonstrate the features of the app.
-3. An Android APK that looks at user location. Note that you likely will not get any results with this app: this is because the range that it searches is set low so that it does not use up all of our free API key usage. 
+3. An Android APK that looks at user location. Note that you likely will not get many results with this app: this is because the range that it searches is set low so that it does not use up all of our free API key usage. 
 
 # Technology
 Our project utilizes many different technologies, including:
@@ -34,7 +34,7 @@ Our project utilizes many different technologies, including:
 - Cordova to package a web app into an android APK. https://cordova.apache.org/
 - Google Maps Places API to get data on nearby locations and their popularity. https://developers.google.com/places/web-service/intro
 - Popular times API, a python extension to Places API. https://github.com/m-wrzr/populartimes
-- Cloud Firebase, a cloud based API, to store user ratings and display them to clients. https://firebase.google.com/
+- Cloud Firebase, a cloud based database, to store user ratings and display them to clients. https://firebase.google.com/
 - Websockets to allow the client and server to communicate. https://pypi.org/project/websockets/
 
 # Code Structure
