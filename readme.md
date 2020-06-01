@@ -3,7 +3,9 @@
 An IO Hack Project for team ANTS (team #8)
 
 As our project includes both a front-end application and a back-end server, running instructions will vary depending on which you want to run. The front-end requires the back-end to function; however, we are running a server with the back-end code running. This means the front end can be run without needing to run the back end on your computer.
-_If you wish to run the backend, you need an API key and database authentication._
+_If you wish to run the backend, you need an API key and database authentication. Please let us know if you would like these resources. **This is NOT necessary unless you want to run the server yourself, as we have our own server running.**_
+
+You can run the client yourself as well, but once again, this is **NOT** necessary as we are hosting the app on a webpage and have created two Android APKs for your use.
 
 [This project is hosted here](https://sparse.ben1jen.software/)
 
