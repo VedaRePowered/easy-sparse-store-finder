@@ -24,7 +24,7 @@ Then you need to (in the client directory) run:
 **ATTENTION** Python and pip things are only needed if you decide to run the backend yourself.
 
 npm+node: Get from nodejs.org
-python3: Get from python.org
+python3.8: Get from python.org
 
 npm packages: installed with `npm install` in the client directory
 
