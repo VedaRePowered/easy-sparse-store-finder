@@ -1,0 +1,36 @@
+ ~Message~
+Running our backend requires a firebase authorization file, called `server/dbauth.json`,
+and an api key for google maps at `server/apiKey.txt`,
+message @CelestialTater#8112 on discord or email coledewis@gmail.com to obtain these.
+Then simply run `python3 main.py` in the backend directory.
+
+If you do decide to run the backend yourself, change line 11 in `client/src/App.js` from
+`const socket = new WebSocket("wss://sparse.ben1jen.software/ws/"); // connect to backend server`
+ to
+`const socket = new WebSocket("localhost:7030"); // connect to backend server`
+
+Running the client requires nodejs and npm (usually they come packaged together).
+In the `client` directory, run `npm install`, then `npm start`.
+Your browser should open up with the app, if not, go to `127.0.0.1:3000`.
+
+To build the cordova app you need to install android studio.
+You can check if cordova and android studio are set up correctly with `cordova requirements`
+Then you need to (in the client directory) run:
+`cordova platform add android`, then
+`cordova build android`.
+
+ ~Dependencies~
+
+**ATTENTION** Python and pip things are only needed if you decide to run the backend yourself.
+
+npm+node: Get from nodejs.org
+python3: Get from python.org
+
+npm packages: installed with `npm install` in the client directory
+
+Cordova requires android studio to build the android app, run `cordova requirements` to see if it's set up correctly
+
+pip packages: (install with `pip3 install package`)
+websockets
+firebase_admin
+populartimes (git+https://github.com/m-wrzr/populartimes)
