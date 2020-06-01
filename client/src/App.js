@@ -8,7 +8,7 @@ function decode(data) {
   return data.split(";").map(object => object.split(":"));
 }
 
-const socket = new WebSocket("ws://sparse.ben1jen.software/ws/"); // connect to backend server
+const socket = new WebSocket("wss://sparse.ben1jen.software/ws/"); // connect to backend server
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
