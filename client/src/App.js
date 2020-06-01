@@ -18,9 +18,15 @@ class App extends React.Component {
     this.ownPosition = {"latitude": 51.0509746, "longitude": -114.0782401};
     this.state = {
       stores: [], // stored in this.state for react
+      listening: true,
     };
   }
-  reloadStores() {
+  reloadStores(resetStores) {
+    if (resetStores) {
+      this.setState({stores: [], listening: true});
+    } else {
+      this.setState({listening: true});
+    }
     // Get position and reload store list from the server
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -33,7 +39,6 @@ class App extends React.Component {
         socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
       }
     );
-    // This is horrible.
   }
   componentDidMount() {
     // Refresh as soon as we connect to the backend
@@ -69,7 +74,7 @@ class App extends React.Component {
           }
 
           // Update the react elements
-          this.setState({stores: sortedStores});
+          this.setState({stores: sortedStores, listening: false});
           break;
         default:
 
@@ -86,30 +91,64 @@ class App extends React.Component {
   // Send our new rating to the server
   userRate(cursor) {
     socket.send("userRate;" + this.closestId + ";" + Math.floor(cursor.clientX/window.innerWidth*100.0).toString());
-    this.reloadStores();
+    this.reloadStores(false);
   }
 
   // Switch which type of store we're displaying
   switchStores(storeType) {
     this.storeType = storeType;
-    this.reloadStores();
+    this.reloadStores(true);
   }
 
   render() {
-    return (
-      <div className="App">
-        <img className="App_logo" src="sparselogo.png" alt="sparse"/>
-        <div className="App_refreshButtonContainer"><button className="App_refreshButton" onClick={this.reloadStores.bind(this)}>Refresh</button></div>
-        <span className="App_buttonContainer">
-          <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
-          <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
-          <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
-          <button onClick={() => this.switchStores("park")}>Parks</button>
-        </span>
-        <ListView className="App_listView" stores={this.state.stores} />
-        <RatingBar className="App_ratingBar" storeName={this.closestName} userRate={this.userRate.bind(this)}/>
-      </div>
-    );
+    if (this.state.listening) {
+      return (
+        <div className="App">
+          <img className="App_logo" src="sparselogo.png" alt="sparse"/>
+          <div className="App_refreshButtonContainer"><button className="App_refreshButton" onClick={this.reloadStores.bind(this)}>Refresh</button></div>
+          <span className="App_buttonContainer">
+            <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
+            <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
+            <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
+            <button onClick={() => this.switchStores("park")}>Parks</button>
+          </span>
+          <div className="App_statusText">
+            Loading...
+          </div>
+        </div>
+      );
+    } else if (this.state.stores.length === 0) {
+      return (
+        <div className="App">
+          <img className="App_logo" src="sparselogo.png" alt="sparse"/>
+          <div className="App_refreshButtonContainer"><button className="App_refreshButton" onClick={this.reloadStores.bind(this)}>Refresh</button></div>
+          <span className="App_buttonContainer">
+            <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
+            <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
+            <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
+            <button onClick={() => this.switchStores("park")}>Parks</button>
+          </span>
+          <div className="App_statusText">
+            No stores near you found.
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <img className="App_logo" src="sparselogo.png" alt="sparse"/>
+          <div className="App_refreshButtonContainer"><button className="App_refreshButton" onClick={this.reloadStores.bind(this)}>Refresh</button></div>
+          <span className="App_buttonContainer">
+            <button onClick={() => this.switchStores("supermarket")}>Supermarkets</button>
+            <button onClick={() => this.switchStores("convenience_store")}>Convenience Store</button>
+            <button onClick={() => this.switchStores("restaurant")}>Restaurants</button>
+            <button onClick={() => this.switchStores("park")}>Parks</button>
+          </span>
+          <ListView className="App_listView" stores={this.state.stores} />
+          <RatingBar className="App_ratingBar" storeName={this.closestName} userRate={this.userRate.bind(this)}/>
+        </div>
+      );
+    }
   }
 }
 
