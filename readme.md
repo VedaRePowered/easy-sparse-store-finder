@@ -1,30 +1,48 @@
-# io-hack-project
-An IO Hack Project for team ANTS
+![Sparse](https://raw.githubusercontent.com/BEN1JEN/easy-sparse-store-finder/master/client/public/sparselogo.png)
+
+An IO Hack Project for team ANTS (team #8)
 
 As our project includes both a front-end application and a back-end server, running instructions will vary depending on which you want to run. The front-end requires the back-end to function; however, we are running a server with the back-end code running. This means the front end can be run without needing to run the back end on your computer.
 _If you wish to run the backend, you need an API key and database authentication._
 
+[This project is hosted here](https://sparse.ben1jen.software/)
+
 To get started:
 
 To set up frontend requirements:
-`cd client`
-`npm run init`
-`cd ..`
+```
+cd client
+npm run init
+```
+Then to run the project
+`npm start`
+To build on cordova
+```
+cordova platform add android
+cordova build android
+```
+To build and host
+```
+npm run build
+npm run serve
+```
+(you need the npm package serve)
 
 To set up backend requirements:
-`cd server`
-`pip3 install websockets`
-`pip3 install firebase_admin`
-`pip3 install --upgrade git+https://github.com/m-wrzr/populartimes`
+```
+cd server
+pip3 install websockets
+pip3 install firebase_admin
+pip3 install --upgrade git+https://github.com/m-wrzr/populartimes
+```
 
-To run, simultaneously run:
-`cd client; npm start` (frontend) and
-`cd server; python3 main.py` (backend)
+To run the backend run:
+`python3 main.py`
 
-Alternatively, download one of our Android APKs or visit our webpage.
+Alternatively, download one of our [Android APKs](https://drive.google.com/file/d/19WsWp-907unNeCVBh1RdGa5mjK3F7C7N/view?usp=sharing) or visit our [webpage](https://sparse.ben1jen.software/).
 
 Our project has three forms:
-1. A webpage hosting the client. If you allow location access, the app will use your location. If you deny access, it will use a set location as a demo
+1. A webpage hosting the client. If you allow location access, the app will use your location. If you deny access, it will use a set location as a demo.
 2. An Android APK with a set location. This is used to demonstrate the features of the app.
 3. An Android APK that looks at user location. Note that you likely will not get many results with this app: this is because the range that it searches is set low so that it does not use up all of our free API key usage. 
 
