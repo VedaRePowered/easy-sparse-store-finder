@@ -24,12 +24,13 @@ class App extends React.Component {
     // Get position and reload store list from the server
     navigator.geolocation.getCurrentPosition(
       position => {
-        // this.ownPosition.latitude = position.coords.latitude;
-        // this.ownPosition.longitude = position.coords.longitude;
+        this.ownPosition.latitude = position.coords.latitude;
+        this.ownPosition.longitude = position.coords.longitude;
+        socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
       },
       error => alert(error.message)
     );
-    socket.send("getRatings;" + this.ownPosition.latitude.toString() + ";" + this.ownPosition.longitude.toString() + ";" + this.storeType);
+    // This is horrible.
   }
   componentDidMount() {
     // Refresh as soon as we connect to the backend
@@ -59,8 +60,10 @@ class App extends React.Component {
             .filter(store => store.googleRating !== 0)
             .sort((a, b) => a.dist - b.dist);
 
-          this.closestId = sortedStores[0].locationId;
-          this.closestName = sortedStores[0].name;
+          if (sortedStores[0]) {
+            this.closestId = sortedStores[0].locationId;
+            this.closestName = sortedStores[0].name;
+          }
 
           // Update the react elements
           this.setState({stores: sortedStores});
@@ -69,6 +72,12 @@ class App extends React.Component {
 
       }
     };
+    socket.onclose = event => {
+      alert("disconnect");
+      setTimeout(() => {
+        socket = new WebSocket("ws://sparse.ben1jen.software/ws/");
+      }, 5000)
+    }
   }
 
   // Send our new rating to the server
