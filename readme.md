@@ -21,21 +21,21 @@ To run, simultaneously run:
 `cd client; npm start` (frontend) and
 `cd server; python3 main.py` (backend)
 
-Created by:
-Ben Heard,
-Ben Shi,
-Cole Dewis,
-Jacob Guglielmin and
-Jerry Zhou
+Alternatively, download one of our Android APKs or visit our webpage.
+
+Our project has three forms:
+1. A webpage hosting the client. If you allow location access, the app will use your location. If you deny access, it will use a set location as a demo
+2. An Android APK with a set location. This is used to demonstrate the features of the app.
+3. An Android APK that looks at user location. Note that you likely will not get any results with this app: this is because the range that it searches is set low so that it does not use up all of our free API key usage. 
 
 # Technology
 Our project utilizes many different technologies, including:
-- React JavaScript libraries to create a simple, yet effective, web app
-- Cordova to package a web app into an android APK
-- Google Maps Places API to get data on nearby locations and their popularity
-- Popular times API, a python extension to Places API
-- Cloud Firebase, a cloud based API, to store user ratings and display them to clients
-- Websockets to allow the client and server to communicate
+- React JavaScript libraries to create a simple, yet effective, web app. https://reactjs.org/
+- Cordova to package a web app into an android APK. https://cordova.apache.org/
+- Google Maps Places API to get data on nearby locations and their popularity. https://developers.google.com/places/web-service/intro
+- Popular times API, a python extension to Places API. https://github.com/m-wrzr/populartimes
+- Cloud Firebase, a cloud based API, to store user ratings and display them to clients. https://firebase.google.com/
+- Websockets to allow the client and server to communicate. https://pypi.org/project/websockets/
 
 # Code Structure
 Sparse operates with both a front end and back end. 
@@ -52,3 +52,10 @@ In client/public, index.html
 In client/scripts, prebuild.js
 
 In client/src, serviceWorker.js and setupTests.js
+
+# Created By
+Ben Heard,
+Ben Shi,
+Cole Dewis,
+Jacob Guglielmin and
+Jerry Zhou
